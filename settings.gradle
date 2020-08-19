@@ -1,0 +1,3 @@
+include ':NinePicView'
+include ':app'
+rootProject.name = "NinePic"
