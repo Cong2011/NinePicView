@@ -2,6 +2,7 @@ package cn.cong.ninepic;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 public class NineGridLayoutManager extends GridLayoutManager {
@@ -33,4 +34,14 @@ public class NineGridLayoutManager extends GridLayoutManager {
     public boolean canScrollHorizontally() {
         return isScrollEnabled && super.canScrollHorizontally();
     }
+
+    @Override
+    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+        try {
+            super.onLayoutChildren(recycler, state);
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

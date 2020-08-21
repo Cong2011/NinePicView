@@ -27,30 +27,6 @@ public class NinePicImageView extends android.support.v7.widget.AppCompatImageVi
         isCanDrag = canDrag;
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        switch (MeasureSpec.getMode(widthMeasureSpec)) {
-            case MeasureSpec.EXACTLY:
-                super.onMeasure(widthMeasureSpec, widthMeasureSpec);
-                break;
-            case MeasureSpec.AT_MOST:
-                int i = MeasureSpec.getMode(heightMeasureSpec);
-                if (i == MeasureSpec.EXACTLY || i == MeasureSpec.AT_MOST) {
-                    int spec = MeasureSpec.makeMeasureSpec(
-                            Math.min(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.getSize(heightMeasureSpec))
-                            , MeasureSpec.AT_MOST);
-                    super.onMeasure(spec, spec);
-                } else super.onMeasure(widthMeasureSpec, widthMeasureSpec);
-                break;
-            default:
-                int mode = MeasureSpec.getMode(heightMeasureSpec);
-                if (mode == MeasureSpec.EXACTLY || mode == MeasureSpec.AT_MOST)
-                    super.onMeasure(heightMeasureSpec, heightMeasureSpec);
-                else super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-                break;
-        }
-    }
-
     private float downX, downY;
 
     @Override

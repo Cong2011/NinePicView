@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,13 +108,18 @@ public class NinePicAdapter extends RecyclerView.Adapter<NinePicAdapter.NinePicV
         public void onBind() {
             int pad = adapter.mSpaceSize;
             itemLayout.setPadding(pad, pad, pad, pad);
+            ImageView imgDel = itemLayout.getImgDelete();
+            NinePicImageView imgView = itemLayout.getImgView();
             if (isAddItem()) {
-                itemLayout.setVisibility(adapter.isDragging() ? View.GONE : View.VISIBLE);
-                itemLayout.setIsDeleteMode(false);
-                itemLayout.getImgView().setImageResource(adapter.mIcAddMoreResId);
-                itemLayout.getImgView().setCanDrag(false);
+                int v = adapter.isDragging() ? View.GONE : View.VISIBLE;
+                if (itemLayout.getVisibility() != v) itemLayout.setVisibility(v);
+                itemLayout.setIsDeleteMode(true);
+                if (imgDel.getVisibility() != View.GONE) imgDel.setVisibility(View.GONE);
+                imgView.setImageResource(adapter.mIcAddMoreResId);
+                imgView.setCanDrag(false);
             } else {
-                itemLayout.setVisibility(View.VISIBLE);
+                if (itemLayout.getVisibility() != View.VISIBLE)
+                    itemLayout.setVisibility(View.VISIBLE);
                 url = adapter.mDataList.get(getAdapterPosition());
                 if (adapter.isDragging()) itemLayout.getImgDelete().setVisibility(View.GONE);
                 else {
@@ -121,12 +127,12 @@ public class NinePicAdapter extends RecyclerView.Adapter<NinePicAdapter.NinePicV
                     itemLayout.setIsDeleteMode(adapter.mIsEditMode);
                     itemLayout.setDeleteIcon(adapter.mIcDelete);
                 }
-                itemLayout.getImgView().setCanDrag(adapter.mIsEditMode); // 编辑状态、图片，可拖拽
+                imgView.setCanDrag(adapter.mIsEditMode); // 编辑状态、图片，可拖拽
                 if (itemLayout.getImageWidth() != 0 && itemLayout.getImageWidth() != 0)
-                    adapter.mImageLoader.displayNineGridImage(itemLayout.getContext(), url, itemLayout.getImgView()
+                    adapter.mImageLoader.displayNineGridImage(itemLayout.getContext(), url, imgView
                             , itemLayout.getImageWidth(), itemLayout.getImageHeight());
                 else
-                    adapter.mImageLoader.displayNineGridImage(itemLayout.getContext(), url, itemLayout.getImgView());
+                    adapter.mImageLoader.displayNineGridImage(itemLayout.getContext(), url, imgView);
             }
         }
 

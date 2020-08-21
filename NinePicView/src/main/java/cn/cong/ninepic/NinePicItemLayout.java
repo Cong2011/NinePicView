@@ -35,12 +35,30 @@ public class NinePicItemLayout extends FrameLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        // 正方形
+        int spec;
+        switch (MeasureSpec.getMode(widthMeasureSpec)) {
+            case MeasureSpec.EXACTLY:
+                spec = widthMeasureSpec;
+                break;
+            case MeasureSpec.AT_MOST:
+                spec = MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.UNSPECIFIED
+                        ? widthMeasureSpec : MeasureSpec.makeMeasureSpec(
+                        Math.min(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.getSize(heightMeasureSpec))
+                        , MeasureSpec.AT_MOST);
+                break;
+            default:
+                spec = MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.UNSPECIFIED
+                        ? widthMeasureSpec : heightMeasureSpec;
+                break;
+        }
+        super.onMeasure(spec, spec);
         int mWidth, mHeight;
         mWidth = getMeasuredWidth();
         mHeight = getMeasuredHeight();
         Log.d("ItemLayout", "onMeasure: w->" + mWidth + ",h->" + mHeight);
         if (mWidth == 0 && mHeight == 0) return;
+
         mWidth = mWidth - getPaddingLeft() - getPaddingRight();
         mHeight = mHeight - getPaddingTop() - getPaddingBottom();
         //Measure the size of the delete button
@@ -59,9 +77,12 @@ public class NinePicItemLayout extends FrameLayout {
             mImageWidth = mWidth;
             mImageHeight = mHeight;
         }
-        imgWidthSpec = MeasureSpec.makeMeasureSpec(mImageWidth, imgMode);
-        imgHeightSpec = MeasureSpec.makeMeasureSpec(mImageHeight, imgMode);
-        mImageView.measure(imgWidthSpec, imgHeightSpec);
+//        imgWidthSpec = MeasureSpec.makeMeasureSpec(mImageWidth, imgMode);
+//        imgHeightSpec = MeasureSpec.makeMeasureSpec(mImageHeight, imgMode);
+//        mImageView.measure(imgWidthSpec, imgHeightSpec);
+        int padWid = (mWidth - mImageWidth) / 2;
+        int padHei = (mHeight - mImageHeight) / 2;
+        mImageView.setPadding(padWid, padHei, padWid, padHei);
     }
 
     public int getImageWidth() {
@@ -85,10 +106,7 @@ public class NinePicItemLayout extends FrameLayout {
      */
     public void setIsDeleteMode(boolean b) {
         this.mIsDeleteMode = b;
-        if (mIsDeleteMode)
-            mImgDelete.setVisibility(VISIBLE);
-        else
-            mImgDelete.setVisibility(GONE);
+        mImgDelete.setVisibility(mIsDeleteMode ? VISIBLE : GONE);
         requestLayout();
     }
 

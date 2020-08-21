@@ -135,6 +135,19 @@ public class NinePicView extends RecyclerView {
     }
 
     /**
+     * Add data source
+     */
+    public void addDataList(String url) {
+        if (mAdapter.mDataList.size() >= mAdapter.mMaxNum) {
+            return;
+        }
+        int start = mAdapter.mDataList.size();
+        //Not allowed to exceed the maximum number
+        mAdapter.mDataList.add(url);
+        mAdapter.notifyItemInserted(start);
+    }
+
+    /**
      * Set weather is in edit mode
      */
     public void setIsEditMode(boolean b) {
@@ -305,7 +318,7 @@ public class NinePicView extends RecyclerView {
             out.writeByte(canDrag ? (byte) 1 : (byte) 0);
         }
 
-        public static final Parcelable.Creator<SavedViewState> CREATOR = new Creator<SavedViewState>() {
+        public static final Creator<SavedViewState> CREATOR = new Creator<SavedViewState>() {
             @Override
             public SavedViewState createFromParcel(Parcel source) {
                 return new SavedViewState(source);
