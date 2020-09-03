@@ -11,8 +11,9 @@ public class NinePicItemLayout extends FrameLayout {
     private ImageView mImgDelete;
     private boolean mIsDeleteMode;
     private int mImageWidth, mImageHeight;
-    private int mIcDelete = R.drawable.ic_ngv_delete;
-    private float mRatio = 0.25f;
+    private int mIcDelete = NinePicView.defOption.defIcDeleteResId;
+    private float mRatio = NinePicView.defOption.defRatioDelete;
+    private float mImgScale = NinePicView.defOption.imgScaleOnEdit;
 
     public NinePicItemLayout(Context context) {
         super(context);
@@ -56,7 +57,6 @@ public class NinePicItemLayout extends FrameLayout {
         int mWidth, mHeight;
         mWidth = getMeasuredWidth();
         mHeight = getMeasuredHeight();
-        Log.d("ItemLayout", "onMeasure: w->" + mWidth + ",h->" + mHeight);
         if (mWidth == 0 && mHeight == 0) return;
 
         mWidth = mWidth - getPaddingLeft() - getPaddingRight();
@@ -71,18 +71,15 @@ public class NinePicItemLayout extends FrameLayout {
         mImageHeight = 0;
         int imgMode = MeasureSpec.EXACTLY, imgWidthSpec = 0, imgHeightSpec = 0;
         if (mIsDeleteMode) {
-            mImageWidth = mWidth * 4 / 5;
-            mImageHeight = mHeight * 4 / 5;
+            mImageWidth = (int) (mWidth * mImgScale);
+            mImageHeight = (int) (mHeight * mImgScale);
         } else {
             mImageWidth = mWidth;
             mImageHeight = mHeight;
         }
-//        imgWidthSpec = MeasureSpec.makeMeasureSpec(mImageWidth, imgMode);
-//        imgHeightSpec = MeasureSpec.makeMeasureSpec(mImageHeight, imgMode);
-//        mImageView.measure(imgWidthSpec, imgHeightSpec);
-        int padWid = (mWidth - mImageWidth) / 2;
-        int padHei = (mHeight - mImageHeight) / 2;
-        mImageView.setPadding(padWid, padHei, padWid, padHei);
+        imgWidthSpec = MeasureSpec.makeMeasureSpec(mImageWidth, imgMode);
+        imgHeightSpec = MeasureSpec.makeMeasureSpec(mImageHeight, imgMode);
+        mImageView.measure(imgWidthSpec, imgHeightSpec);
     }
 
     public int getImageWidth() {
@@ -133,6 +130,10 @@ public class NinePicItemLayout extends FrameLayout {
      */
     public void setRatioOfDeleteIcon(float ratio) {
         this.mRatio = ratio;
+    }
+
+    public void setImgScaleOnEdit(float itemScale) {
+        this.mImgScale = itemScale;
     }
 
     /**

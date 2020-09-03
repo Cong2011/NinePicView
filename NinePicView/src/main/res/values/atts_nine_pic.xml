@@ -8,6 +8,7 @@
         <attr name="icon_add_more" format="reference" />
         <attr name="icon_delete" format="reference" />
         <attr name="delete_ratio" format="float" />
+        <attr name="scale_on_edit" format="float" />
         <attr name="can_drag_on_edit" format="boolean" />
     </declare-styleable>
 </resources>

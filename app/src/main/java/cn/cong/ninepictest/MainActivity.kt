@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=204788913,310787938&fm=26&gp=0.jpg",
             "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2263126374,543827906&fm=26&gp=0.jpg",
             "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3001314946,1449082998&fm=26&gp=0.jpg",
-            "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1385669300,2514566767&fm=26&gp=0.jpg"
+            "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=116311174,3491758342&fm=26&gp=0.jpg"
         )
 //        npv.dataList = listOf("1", "2", "3", "4", "5", "6", "7", "8") // 此数据用来验证，拖动后dataList数据是否同步
         npv.setOnItemClickListener(object : NinePicView.onItemClickListener {

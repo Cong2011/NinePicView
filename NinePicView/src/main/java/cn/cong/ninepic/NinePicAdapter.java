@@ -22,6 +22,7 @@ public class NinePicAdapter extends RecyclerView.Adapter<NinePicAdapter.NinePicV
     int mIcDelete = NinePicView.defOption.defIcDeleteResId;
     //Ratio of delete icon with parent view
     float mRatioOfDelete = NinePicView.defOption.defRatioDelete;
+    float mImgScaleOnEdit = NinePicView.defOption.imgScaleOnEdit;
     //Size of space
     int mSpaceSize = NinePicView.defOption.defSpaceSize;
 
@@ -109,11 +110,12 @@ public class NinePicAdapter extends RecyclerView.Adapter<NinePicAdapter.NinePicV
             int pad = adapter.mSpaceSize;
             itemLayout.setPadding(pad, pad, pad, pad);
             ImageView imgDel = itemLayout.getImgDelete();
-            NinePicImageView imgView = itemLayout.getImgView();
+            final NinePicImageView imgView = itemLayout.getImgView();
             if (isAddItem()) {
                 int v = adapter.isDragging() ? View.GONE : View.VISIBLE;
                 if (itemLayout.getVisibility() != v) itemLayout.setVisibility(v);
                 itemLayout.setIsDeleteMode(true);
+                itemLayout.setImgScaleOnEdit(adapter.mImgScaleOnEdit);
                 if (imgDel.getVisibility() != View.GONE) imgDel.setVisibility(View.GONE);
                 imgView.setImageResource(adapter.mIcAddMoreResId);
                 imgView.setCanDrag(false);
@@ -124,15 +126,21 @@ public class NinePicAdapter extends RecyclerView.Adapter<NinePicAdapter.NinePicV
                 if (adapter.isDragging()) itemLayout.getImgDelete().setVisibility(View.GONE);
                 else {
                     itemLayout.setRatioOfDeleteIcon(adapter.mRatioOfDelete);
+                    itemLayout.setImgScaleOnEdit(adapter.mImgScaleOnEdit);
                     itemLayout.setIsDeleteMode(adapter.mIsEditMode);
                     itemLayout.setDeleteIcon(adapter.mIcDelete);
                 }
                 imgView.setCanDrag(adapter.mIsEditMode); // 编辑状态、图片，可拖拽
-                if (itemLayout.getImageWidth() != 0 && itemLayout.getImageWidth() != 0)
-                    adapter.mImageLoader.displayNineGridImage(itemLayout.getContext(), url, imgView
-                            , itemLayout.getImageWidth(), itemLayout.getImageHeight());
-                else
-                    adapter.mImageLoader.displayNineGridImage(itemLayout.getContext(), url, imgView);
+                itemLayout.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (itemLayout.getImageWidth() != 0 && itemLayout.getImageWidth() != 0)
+                            adapter.mImageLoader.displayNineGridImage(itemLayout.getContext(), url, imgView
+                                    , itemLayout.getImageWidth(), itemLayout.getImageHeight());
+                        else
+                            adapter.mImageLoader.displayNineGridImage(itemLayout.getContext(), url, imgView);
+                    }
+                });
             }
         }
 

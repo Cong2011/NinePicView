@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 import java.util.ArrayList;
@@ -53,9 +52,6 @@ public class NinePicView extends RecyclerView {
     }
 
     private void initParams(Context context, AttributeSet attrs) {
-        DisplayMetrics dm = context.getResources().getDisplayMetrics();
-        mAdapter.mSpaceSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mAdapter.mSpaceSize, dm);
-
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.NinePicView);
         if (ta != null) {
             int count = ta.getIndexCount();
@@ -75,6 +71,8 @@ public class NinePicView extends RecyclerView {
                     mAdapter.mIcDelete = ta.getResourceId(index, mAdapter.mIcDelete);
                 } else if (index == R.styleable.NinePicView_delete_ratio) {
                     mAdapter.mRatioOfDelete = ta.getFloat(index, mAdapter.mRatioOfDelete);
+                } else if (index == R.styleable.NinePicView_scale_on_edit) {
+                    mAdapter.mImgScaleOnEdit = ta.getFloat(index, mAdapter.mImgScaleOnEdit);
                 } else if (index == R.styleable.NinePicView_can_drag_on_edit) {
                     canDrag = ta.getBoolean(index, canDrag);
                 }
@@ -182,6 +180,10 @@ public class NinePicView extends RecyclerView {
         mAdapter.mRatioOfDelete = ratio;
     }
 
+    public void setImgScaleOnEdit(float scale) {
+        mAdapter.mImgScaleOnEdit = scale;
+    }
+
     /**
      * Set the maximum number
      */
@@ -253,6 +255,7 @@ public class NinePicView extends RecyclerView {
         ss.icAddMoreResId = mAdapter.mIcAddMoreResId;
         ss.icDeleteResId = mAdapter.mIcDelete;
         ss.ratioDelete = mAdapter.mRatioOfDelete;
+        ss.mImgScaleOnEdit = mAdapter.mImgScaleOnEdit;
         ss.dataList = mAdapter.mDataList;
         ss.canDrag = canDrag;
         return ss;
@@ -274,6 +277,7 @@ public class NinePicView extends RecyclerView {
         mAdapter.mIcAddMoreResId = ss.icAddMoreResId;
         mAdapter.mIcDelete = ss.icDeleteResId;
         mAdapter.mRatioOfDelete = ss.ratioDelete;
+        mAdapter.mImgScaleOnEdit = ss.mImgScaleOnEdit;
         setDataList(ss.dataList);
         canDrag = ss.canDrag;
     }
@@ -287,6 +291,7 @@ public class NinePicView extends RecyclerView {
         List<String> dataList = new ArrayList<>();
         int icDeleteResId;
         float ratioDelete;
+        float mImgScaleOnEdit;
         boolean canDrag;
 
         SavedViewState(Parcelable superState) {

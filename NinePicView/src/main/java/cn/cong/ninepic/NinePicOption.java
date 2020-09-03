@@ -8,6 +8,7 @@ public class NinePicOption {
     int defIcAddMoreResId = R.drawable.ic_ngv_add_pic;
     int defIcDeleteResId = R.drawable.ic_ngv_delete;
     float defRatioDelete = 0.25f;
+    float imgScaleOnEdit = 0.8F;
     boolean defCanDrag;
 
     //child view click listener
@@ -66,6 +67,12 @@ public class NinePicOption {
             return this;
         }
 
+        public Builder setImgScaleOnEdit(float imgScale) {
+            option.imgScaleOnEdit = imgScale;
+            return this;
+        }
+
+
         public Builder setImageLoader(INinePicImageLoader imageLoader) {
             option.defImageLoader = imageLoader;
             return this;
@@ -75,6 +82,50 @@ public class NinePicOption {
             option.defListener = l;
             return this;
         }
+    }
 
+
+    public int getDefSpaceSize() {
+        return defSpaceSize;
+    }
+
+    public int getDefColumnCount() {
+        return defColumnCount;
+    }
+
+    public int getDefMaxNum() {
+        return defMaxNum;
+    }
+
+    public boolean isDefIsEditMode() {
+        return defIsEditMode;
+    }
+
+    public int getDefIcAddMoreResId() {
+        return defIcAddMoreResId;
+    }
+
+    public int getDefIcDeleteResId() {
+        return defIcDeleteResId;
+    }
+
+    public float getDefRatioDelete() {
+        return defRatioDelete;
+    }
+
+    public float getImgScaleOnEdit() {
+        return imgScaleOnEdit;
+    }
+
+    public boolean isDefCanDrag() {
+        return defCanDrag;
+    }
+
+    public NinePicView.onItemClickListener getDefListener() {
+        return defListener;
+    }
+
+    public INinePicImageLoader getDefImageLoader() {
+        return defImageLoader;
     }
 }

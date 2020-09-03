@@ -8,11 +8,15 @@ import android.view.MotionEvent;
 public class NinePicImageView extends android.support.v7.widget.AppCompatImageView {
     public NinePicImageView(Context context) {
         super(context);
-        setClickable(true);
+        init(context);
     }
 
     public NinePicImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context);
+    }
+
+    private void init(Context context) {
         setClickable(true);
     }
 
