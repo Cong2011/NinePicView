@@ -30,10 +30,8 @@ NinePicView.init()
 
 说明：
 
-暂不支持9图以上；暂不支持AndroidX；需额外添加 implementation 'com.android.support:design:28.0.0'依赖(因使用RecyclerView)
+当前版本支持Androidx（RecyclerView:1.1.0、appCompat:1.2.0）（support:28.0.0请使用1.0.2） 
 
-基于：https://github.com/panyiho/NineGridView （原项目使用此资源）
+不支持9图以上
 
-后因项目要求编辑时可拖动图片排序，但此资源不含拖拽功能。
-
-于是修改为RecyclerView+ItemTouchHelper，增加拖拽效果，并修改一些细节如测量方法等。
+基于：https://github.com/panyiho/NineGridView （原项目使用此资源，但该资源不支持拖拽效果）

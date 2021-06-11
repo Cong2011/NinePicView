@@ -1,8 +1,9 @@
 package cn.cong.ninepic;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.ItemTouchHelper;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -94,7 +95,7 @@ public class NinePicAdapter extends RecyclerView.Adapter<NinePicAdapter.NinePicV
     public static class NinePicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @NonNull
         private final NinePicAdapter adapter;
-        private NinePicItemLayout itemLayout;
+        private final NinePicItemLayout itemLayout;
         private String url;
 
         public NinePicViewHolder(@NonNull NinePicAdapter adapter, @NonNull NinePicItemLayout itemLayout) {

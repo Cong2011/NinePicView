@@ -1,9 +1,9 @@
 package cn.cong.ninepictest
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import cn.cong.ninepic.NinePicItemLayout
 import cn.cong.ninepic.NinePicOption
 import cn.cong.ninepic.NinePicView

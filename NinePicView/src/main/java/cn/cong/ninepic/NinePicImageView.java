@@ -1,11 +1,13 @@
 package cn.cong.ninepic;
 
 import android.content.Context;
-import android.support.v7.widget.helper.ItemTouchHelper;
+
+import androidx.recyclerview.widget.ItemTouchHelper;
+
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-public class NinePicImageView extends android.support.v7.widget.AppCompatImageView {
+public class NinePicImageView extends androidx.appcompat.widget.AppCompatImageView {
     public NinePicImageView(Context context) {
         super(context);
         init(context);
